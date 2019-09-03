@@ -1,0 +1,97 @@
+@startuml
+
+class Exhibitor {
+id bigInt
+Name varchar[255]
+password varchar[255]
+email varchar[255]
+verify bit
+}
+
+class Customer {
+id bigInt
+Name varchar[255]
+email varchar[255]
+password varchar[255]
+verify bit
+}
+
+class Customer_Payment {
+id bigInt
+customer_id bigInt
+payment_id char[2]
+payment_information varchar[255]
+}
+
+class Customer_Payment_History {
+id bigInt
+customer_payment_id bigInt
+updated datetime
+}
+
+Customer_Payment <--> Customer_Payment_History
+Payment <--> Customer_Payment
+Customer <--> Customer_Payment
+
+class Transaction {
+ id bigInt
+ customer_id bigInt
+ customer_payment_id bigInt
+ payment_id bigInt
+}
+
+class Transaction_Detail {
+ id bigInt
+ transaction_id bigInt
+ item_id bigInt
+ price int
+}
+
+Transaction <-- Transaction_Detail
+Transaction_Detail <-- CancelTransaction
+class CancelTransaction {
+ id bigInt
+ item_id bigInt
+ customer_id bigInt
+ price int
+ cancel_date date
+}
+
+class Item {
+id bigInt
+exhibitor_id bigInt
+Name varchar[255]
+Code varchar[255]
+Price integer
+bigInt id
+primary key(id)
+}
+
+class ItemImage {
+id bigInt
+item_id bigInt
+path varchar[255]
+primary bit
+}
+
+Item <-- ItemImage
+
+class ChatRoom {
+  id bigInt
+  item_id bigInt
+  user_id bigInt
+}
+Exhibitor <-- ChatRoom
+Customer <-- ChatRoom
+
+class Chat {
+  id bigInt
+  side bit
+  room_id bigInt
+  comment varchar[255]
+  created datetime
+}
+
+ChatRoom <-- Chat
+
+@enduml
