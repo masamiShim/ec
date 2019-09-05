@@ -18,3 +18,6 @@ serverTimezone=UTC
 - `@PropertySource`  
 これは.propertiesにしか反応しない。yamlでやりたい場合はContextInitializerで頑張る。
 
+## Stripe
+### Vueコンポーネントは？
+[ここで](https://tech.actindi.net/2019/06/04/084920)
