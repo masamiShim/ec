@@ -1,1 +1,6 @@
-
+application:
+  ec:
+    stripe:
+      key:
+        api: XXXXXXXX
+        secret: YYYYYYYYYYY

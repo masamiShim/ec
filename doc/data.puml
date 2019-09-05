@@ -62,8 +62,8 @@ id bigInt
 exhibitor_id bigInt
 Name varchar[255]
 Code varchar[255]
-Price integer
-bigInt id
+Price int
+quantity int
 primary key(id)
 }
 
