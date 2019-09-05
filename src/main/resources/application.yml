@@ -1,6 +1,12 @@
-application:
-  ec:
-    stripe:
-      key:
-        api: XXXXXXXX
-        secret: YYYYYYYYYYY
+
+spring:
+  flyway:
+    enabled: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/ec_db?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ec_user
+    password: ec_user_01
+server:
+  servlet:
+    context-path: /ec/api
