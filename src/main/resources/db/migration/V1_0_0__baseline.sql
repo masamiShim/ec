@@ -48,12 +48,12 @@ create table if not exists ec_db.Item (
 create table if not exists ec_db.Item_Image (
   id int auto_increment,
   item_id int not null,
-  path varchar(255) not null,
+  image mediumblob not null,
+  is_primary bit not null,
   created timestamp not null,
   createdBy int not null,
   modified timestamp not null,
   modifiedBy int not null,
-  is_primary bit not null,
   primary key (id)
 )
 
