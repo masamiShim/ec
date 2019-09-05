@@ -1,11 +1,11 @@
 HELP.md
 .gradle
 build/
+node_modules/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-src/main/resources/stripekey.properties
-src/test/resources/stripekey.properties
+src/main/resources/stripekey.*
 
 ### STS ###
 .apt_generated
