@@ -1,5 +1,6 @@
 package freitech.se.ec.controller.settlement
 
+import freitech.se.ec.param.StripeChargeRequestParam
 import freitech.se.ec.response.BaseResponse
 import freitech.se.ec.result.ChargeResult
 import freitech.se.ec.service.StripeChargeService
@@ -18,7 +19,11 @@ class StripeChargeController {
 
     @PostMapping("/stripe/charge")
     fun stripeCharge(@RequestParam("amount") amount: String, @RequestParam("mail") mail: String): ResponseEntity<BaseResponse> {
-        val builder = StripeChargeParamBuilder(amount.toInt(), mail)
+
+        val requestParam = StripeChargeRequestParam(amount, mail)
+
+        val builder = StripeChargeParamBuilder(requestParam.amount.toLong(), requestParam.mail.value)
+
         val chargeResult = stripeChargeService.charge(builder)
         return when (chargeResult) {
             is ChargeResult.Failed -> ResponseEntity.ok(BaseResponse("faild"))
