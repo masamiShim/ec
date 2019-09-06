@@ -21,3 +21,16 @@ serverTimezone=UTC
 ## Stripe
 ### Vueコンポーネントは？
 [ここで](https://tech.actindi.net/2019/06/04/084920)
+
+## 設計まわり
+### CQS
+[CQS原著](https://martinfowler.com/bliki/CQRS.html)  
+[原著](https://martinfowler.com/bliki/CQRS.html)  
+[これ良いかも](https://www.dotnetcurry.com/patterns-practices/1461/command-query-separation-cqs)  
+- Command  
+値返は返さず副作用のみ
+- Query  
+値を返すけど副作用なし
+- 図を見た感じ
+    - Command(View - App(toComamndModel) - CommandModel(toDBModel) - DB)
+    - Query(Infra - QueryModel(toViewModel) - App(toQueryModel) - View)

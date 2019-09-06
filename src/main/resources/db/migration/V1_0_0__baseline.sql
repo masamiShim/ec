@@ -36,7 +36,7 @@ create table if not exists ec_db.Item (
   exhibitor_id int not null,
   name varchar(255) not null,
   code varchar(255) not null,
-  price varchar(255) not null,
+  price int not null,
   quantity int not null,
   created timestamp not null,
   createdBy int not null,
