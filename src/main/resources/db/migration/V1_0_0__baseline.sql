@@ -16,7 +16,7 @@ create table if not exists ec_db.Exhibitor (
   modified timestamp not null,
   modifiedBy int not null,
   primary key (id)
-)
+);
 
 create table if not exists ec_db.Customer (
   id int auto_increment,
@@ -29,7 +29,7 @@ create table if not exists ec_db.Customer (
   modified timestamp not null,
   modifiedBy int not null,
   primary key (id)
-)
+);
 
 create table if not exists ec_db.Item (
   id int auto_increment,
@@ -43,7 +43,7 @@ create table if not exists ec_db.Item (
   modified timestamp not null,
   modifiedBy int not null,
   primary key (id)
-)
+);
 
 create table if not exists ec_db.Item_Image (
   id int auto_increment,
@@ -55,7 +55,7 @@ create table if not exists ec_db.Item_Image (
   modified timestamp not null,
   modifiedBy int not null,
   primary key (id)
-)
+);
 
 create table if not exists ec_db.Chat_Room (
   id int auto_increment,
@@ -66,7 +66,7 @@ create table if not exists ec_db.Chat_Room (
   modified timestamp not null,
   modifiedBy int not null,
   primary key (id)
-)
+);
 
 create table if not exists ec_db.Chat (
   id int auto_increment,
@@ -76,4 +76,4 @@ create table if not exists ec_db.Chat (
   created timestamp not null,
   createdBy int not null,
   primary key (id)
-)
+);

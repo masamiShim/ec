@@ -1,7 +1,6 @@
-package freitech.se.ec.vo
+package freitech.se.ec.vo.item
 
-
-class ChargeAmount(val value: Long) {
+class Quantity(val value: Long) {
     companion object {
         const val MaxValue: Long = 10000000
         const val MinValue: Long = 1
@@ -11,11 +10,7 @@ class ChargeAmount(val value: Long) {
     }
 
     init {
-        val longValue: Long = value.toLong()
+        val longValue: Long = value
         require(longValue in (MaxValue + 1)..(MinValue - 1)) { "charge amount is illegal range. you set ${MinValue} to ${MaxValue}" }
-    }
-
-    fun toLong(): Long {
-        return this.value.toLong()
     }
 }
