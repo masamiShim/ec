@@ -3,11 +3,11 @@ package freitech.se.ec.mo
 import java.time.LocalDateTime
 
 open class SecurityAudit(
-        val created: LocalDateTime,
-        val createdBy: Int,
-        val modified: LocalDateTime,
-        val modifiedBy: Int,
-        val deleted: LocalDateTime?
+        val created: LocalDateTime = LocalDateTime.now(),
+        val createdBy: Int? = null,
+        val modified: LocalDateTime = LocalDateTime.now(),
+        val modifiedBy: Int? = null,
+        val deleted: LocalDateTime? = null
 
 ) {
     companion object {

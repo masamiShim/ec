@@ -3,18 +3,38 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="freitech.se.ec.repository.read.ItemReadRepository">
-    <select id="findByPk" resultType="freitech.se.ec.mo.Item">
+    <resultMap id="ItemMap" type="freitech.se.ec.mo.Item" autoMapping="true">
+        <association property="id" javaType="freitech.se.ec.mo.Id">
+            <id property="id" column="id"/>
+        </association>
+        <association property="content" resultMap="ItemEntityMap" columnPrefix="content_" />
+        <association property="audit" resultMap="SecurityMap" columnPrefix="audit_" />
+    </resultMap>
+    <resultMap id="SecurityMap" type="freitech.se.ec.mo.SecurityAudit">
+        <result property="audit.created" column="audit_created"/>
+        <result property="audit.createdBy" column="audit_cretedBy"/>
+        <result property="audit.modified" column="audit_modified"/>
+        <result property="audit.modifiedBy" column="audit_modifiedBy"/>
+    </resultMap>
+    <resultMap id="ItemEntityMap" type="freitech.se.ec.entity.ItemEntity">
+        <result property="exhibitorId" column="exhibitor_id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="price" column="price"/>
+        <result property="quantity" column="quantity"/>
+    </resultMap>
+    <select id="findByPk" resultMap="ItemMap">
         SELECT
             I.id as id,
-            I.exhibitor_id as exhibitorId,
-            I.name as name,
-            I.code as code,
-            I.price as price,
-            I.quantity as quantity,
-            I.created as created,
-            I.createdBy as createdBy,
-            I.modified as modified,
-            I.modifiedBy as modifiedBy
+            I.exhibitor_id as content_exhibitor_id,
+            I.name as content_name,
+            I.code as content_code,
+            I.price as content_price,
+            I.quantity as content_quantity,
+            I.created as audit_created,
+            I.createdBy as audit_createdBy,
+            I.modified as audit_modified,
+            I.modifiedBy as audit_modifiedBy
           FROM
             Item I
           WHERE
