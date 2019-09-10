@@ -6,6 +6,7 @@ node_modules/
 !**/src/main/**
 !**/src/test/**
 src/main/resources/stripekey.*
+src/main/koatlin/freitech/se/ec/table/**
 
 ### STS ###
 .apt_generated

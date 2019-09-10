@@ -1,1 +1,1 @@
-alter table Item ADD  comment varchar (511) AFTER quantity;
+SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'ec_db';

@@ -5,6 +5,7 @@ import com.ninja_squad.dbsetup.Operations.insertInto
 import com.ninja_squad.dbsetup.Operations.sql
 import com.ninja_squad.dbsetup.destination.DataSourceDestination
 import com.ninja_squad.dbsetup.operation.Operation
+import freitech.se.ec.table.ItemTable.*
 import org.apache.ibatis.javassist.NotFoundException
 import org.junit.After
 import org.junit.Before
@@ -30,22 +31,21 @@ class ItemReadRepositoryTest {
 
         val INSERT_ITEM: Operation = insertInto("item")
                 .row()
-                .column("id", 1)
-                .column("exhibitor_id", 1)
-                .column("name", "hogeItem")
-                .column("code", "121212")
-                .column("price", 2000)
-                .column("quantity", 20)
-                .column("comment", "test Comment")
-                .column("created", LocalDateTime.now())
-                .column("createdBy", 1)
-                .column("modified", LocalDateTime.now())
-                .column("modifiedBy", 2)
-                .column("deleted", null)
+                .column(Id.name, 1)
+                .column(ExhibitorId.name, 1)
+                .column(Name.name, "hogeItem")
+                .column(Code.name, "121212")
+                .column(Price.name, 2000)
+                .column(Quantity.name, 20)
+                .column(Comment.name, "test Comment")
+                .column(Created.name, LocalDateTime.now())
+                .column(CreatedBy.name, 1)
+                .column(Modified.name, LocalDateTime.now())
+                .column(ModifiedBy.name, 2)
+                .column(Deleted.name, null)
                 .end()
                 .build()
     }
-
 
 
     @Autowired
@@ -64,7 +64,7 @@ class ItemReadRepositoryTest {
 
     @Test(expected = NotFoundException::class)
     fun findByPk_Not_Found() {
-         itemReadRepository.findByPk(2) ?: throw NotFoundException("hogeeeeeeee")
+        itemReadRepository.findByPk(2) ?: throw NotFoundException("hogeeeeeeee")
     }
 
     @After
