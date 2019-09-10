@@ -32,6 +32,7 @@
             I.code as content_code,
             I.price as content_price,
             I.quantity as content_quantity,
+            I.comment as content_comment,
             I.created as audit_created,
             I.createdBy as audit_createdBy,
             I.modified as audit_modified,

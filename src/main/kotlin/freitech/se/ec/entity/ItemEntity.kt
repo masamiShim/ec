@@ -8,5 +8,6 @@ data class ItemEntity(
         val name: String = "",
         val code: String = "",
         val price: Int = 0,
-        val quantity: Int = 0
+        val quantity: Int = 0,
+        val comment: String = ""
 )

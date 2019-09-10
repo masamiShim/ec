@@ -36,6 +36,7 @@ class ItemReadRepositoryTest {
                 .column("code", "121212")
                 .column("price", 2000)
                 .column("quantity", 20)
+                .column("comment", "test Comment")
                 .column("created", LocalDateTime.now())
                 .column("createdBy", 1)
                 .column("modified", LocalDateTime.now())
