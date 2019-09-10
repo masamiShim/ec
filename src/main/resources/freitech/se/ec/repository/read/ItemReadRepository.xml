@@ -11,10 +11,11 @@
         <association property="audit" resultMap="SecurityMap" columnPrefix="audit_" />
     </resultMap>
     <resultMap id="SecurityMap" type="freitech.se.ec.mo.SecurityAudit">
-        <result property="audit.created" column="audit_created"/>
-        <result property="audit.createdBy" column="audit_cretedBy"/>
-        <result property="audit.modified" column="audit_modified"/>
-        <result property="audit.modifiedBy" column="audit_modifiedBy"/>
+        <result property="created" column="created"/>
+        <result property="createdBy" column="createdBy"/>
+        <result property="modified" column="modified"/>
+        <result property="modifiedBy" column="modifiedBy"/>
+        <result property="deleted" column="deleted"/>
     </resultMap>
     <resultMap id="ItemEntityMap" type="freitech.se.ec.entity.ItemEntity">
         <result property="exhibitorId" column="exhibitor_id"/>
@@ -34,7 +35,8 @@
             I.created as audit_created,
             I.createdBy as audit_createdBy,
             I.modified as audit_modified,
-            I.modifiedBy as audit_modifiedBy
+            I.modifiedBy as audit_modifiedBy,
+            I.deleted as audit_deleted
           FROM
             Item I
           WHERE

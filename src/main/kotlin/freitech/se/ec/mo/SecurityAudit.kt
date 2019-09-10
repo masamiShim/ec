@@ -1,12 +1,14 @@
 package freitech.se.ec.mo
 
+import freitech.se.ec.config.NoArg
 import java.time.LocalDateTime
 
+@NoArg
 open class SecurityAudit(
         val created: LocalDateTime = LocalDateTime.now(),
-        val createdBy: Int? = null,
+        val createdBy: Int = 0,
         val modified: LocalDateTime = LocalDateTime.now(),
-        val modifiedBy: Int? = null,
+        val modifiedBy: Int = 0,
         val deleted: LocalDateTime? = null
 
 ) {

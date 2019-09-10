@@ -15,6 +15,7 @@ create table if not exists ec_db.Exhibitor (
   createdBy int not null,
   modified timestamp not null,
   modifiedBy int not null,
+  deleted timestamp,
   primary key (id)
 );
 
@@ -28,6 +29,7 @@ create table if not exists ec_db.Customer (
   createdBy int not null,
   modified timestamp not null,
   modifiedBy int not null,
+  deleted timestamp,
   primary key (id)
 );
 
@@ -42,6 +44,7 @@ create table if not exists ec_db.Item (
   createdBy int not null,
   modified timestamp not null,
   modifiedBy int not null,
+  deleted timestamp,
   primary key (id)
 );
 
@@ -54,6 +57,7 @@ create table if not exists ec_db.Item_Image (
   createdBy int not null,
   modified timestamp not null,
   modifiedBy int not null,
+  deleted timestamp,
   primary key (id)
 );
 
@@ -65,6 +69,7 @@ create table if not exists ec_db.Chat_Room (
   createdBy int not null,
   modified timestamp not null,
   modifiedBy int not null,
+  deleted timestamp,
   primary key (id)
 );
 
@@ -75,5 +80,8 @@ create table if not exists ec_db.Chat (
   comment varchar(511) not null,
   created timestamp not null,
   createdBy int not null,
+  modified timestamp not null,
+  modifiedBy int not null,
+  deleted timestamp,
   primary key (id)
 );
