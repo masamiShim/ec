@@ -15,6 +15,7 @@ class ItemRegisterController {
             @RequestBody price: String,
             @RequestBody quantity: String,
             @RequestBody comment: String) {
+
         val itemRegisterParam = ItemRegisterFormParam(name, code, price, quantity, comment)
 
 

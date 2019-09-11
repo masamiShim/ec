@@ -5,13 +5,12 @@ import com.ninja_squad.dbsetup.Operations.insertInto
 import com.ninja_squad.dbsetup.Operations.sql
 import com.ninja_squad.dbsetup.destination.DataSourceDestination
 import com.ninja_squad.dbsetup.operation.Operation
+import freitech.se.ec.exception.NotFoundException
 import freitech.se.ec.table.ItemTable.*
-import org.apache.ibatis.javassist.NotFoundException
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mybatis.spring.boot.test.autoconfigure.MybatisTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.test.context.junit4.SpringRunner
@@ -19,7 +18,6 @@ import java.time.LocalDateTime
 import javax.sql.DataSource
 
 @RunWith(SpringRunner::class)
-@MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ItemReadRepositoryTest {
 
@@ -27,7 +25,7 @@ class ItemReadRepositoryTest {
     lateinit var datasource: DataSource
 
     companion object {
-        val DELETE_ITEM: Operation = sql("DELETE FROM item WHERE id = 1")
+        val DELETE_ITEM: Operation = sql("DELETE FROM item WHERE value = 1")
 
         val INSERT_ITEM: Operation = insertInto("item")
                 .row()
@@ -49,7 +47,7 @@ class ItemReadRepositoryTest {
 
 
     @Autowired
-    lateinit var itemReadRepository: ItemReadRepository
+    lateinit var itemRepository: ItemRepository
 
     @Before
     fun setUp() {
@@ -59,12 +57,12 @@ class ItemReadRepositoryTest {
 
     @Test
     fun findByPk_test() {
-        itemReadRepository.findByPk(1) ?: throw NotFoundException("hogeeeeeeee")
+        itemRepository.findById(1).orElseThrow(NotFoundException("hogeeeeeeee")::class::objectInstance)
     }
 
     @Test(expected = NotFoundException::class)
     fun findByPk_Not_Found() {
-        itemReadRepository.findByPk(2) ?: throw NotFoundException("hogeeeeeeee")
+        itemRepository.findById(2).orElseThrow(NotFoundException("hogeeeeeeee")::class::objectInstance)
     }
 
     @After

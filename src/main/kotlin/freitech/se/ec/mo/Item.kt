@@ -2,18 +2,19 @@ package freitech.se.ec.mo
 
 import freitech.se.ec.config.NoArg
 import freitech.se.ec.entity.ItemEntity
+import javax.persistence.Embedded
+import javax.persistence.Entity
 
 @NoArg
-data class Item(val id: Id = Id(),
-                val content: ItemEntity = ItemEntity(),
-                val audit: SecurityAudit = SecurityAudit()
-) {
-    fun update(id: Id, entity: ItemEntity): Item {
-        return Item(this.id, entity, SecurityAudit.update(id, this.audit))
-    }
+@Entity
+data class Item(
+        override val id: Int = 0,
+        @Embedded
+        val content: ItemEntity = ItemEntity()
+): SecurityAudit() {
 
-    fun same(id: Id): Boolean {
-        return this.id == id
+    fun update(entity: ItemEntity): Item {
+        return Item(id = id, content = entity)
     }
 
 }

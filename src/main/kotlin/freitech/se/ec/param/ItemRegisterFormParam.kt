@@ -1,5 +1,6 @@
 package freitech.se.ec.param
 
+import freitech.se.ec.entity.ItemEntity
 import freitech.se.ec.exception.BadRequestException
 import freitech.se.ec.vo.item.Price
 import freitech.se.ec.vo.item.Quantity
@@ -7,21 +8,39 @@ import freitech.se.ec.vo.item.Quantity
 /**
  * BadRequestException
  */
-class ItemRegisterFormParam(name: String, code: String, price: String, quantity: String, comment: String) {
-    val name: String = name
-    val code: String = code
-    val price: Price = try {
-        Price(price)
-    } catch (e: Exception) {
-        throw BadRequestException(e.message!!)
+class ItemRegisterFormParam(
+        private val exhibitorId: String,
+        private val name: String,
+        private val code: String,
+        private val price: String,
+        private val quantity: String,
+        private val comment: String
+) {
+
+   @Throws(BadRequestException::class)
+    fun toItemEntity(): ItemEntity {
+        val exhibitorId = try {
+            exhibitorId.toInt()
+        } catch (e: Exception) {
+            throw BadRequestException(e.message ?: "illegal value exhibitorId")
+        }
+
+        val name: String = name
+        val code: String = code
+        val price: Price = try {
+            Price(price)
+        } catch (e: Exception) {
+            throw BadRequestException(e.message ?: "illegal value price")
+        }
+
+        val quantity: Quantity = try {
+            Quantity(quantity)
+        } catch (e: Exception) {
+            throw BadRequestException(e.message ?: "illegal value quantity")
+        }
+
+        val comment: String = comment
+
+        return ItemEntity(exhibitorId, name, code, price, quantity, comment)
     }
-
-    val quantity: Quantity = try {
-        Quantity(quantity)
-    } catch (e: Exception) {
-        throw BadRequestException(e.message!!)
-    }
-
-    val comment: String = comment
-
 }
