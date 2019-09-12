@@ -1,0 +1,25 @@
+@startuml
+
+class User {
+ email
+ password
+}
+
+interface Rel_User_Exhibitor {
+}
+Rel_User_Exhibitor <|-- User
+
+class Exhibitor{
+}
+Exhibitor <|-- Rel_User_Exhibitor
+
+interface Rel_User_Customer {
+}
+Rel_User_Customer <|-- User
+
+class Customer{
+}
+Customer <|-- Rel_User_Customer
+
+
+@enduml

@@ -1,6 +1,6 @@
 package freitech.se.ec.config
 
-import freitech.se.ec.mo.BaseUser
+import freitech.se.ec.mo.User
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.domain.AuditorAware
@@ -14,18 +14,18 @@ import java.util.*
 class JpaAuditorAwareConfig {
 
     @Bean
-    fun auditorAware(): AuditorAware<BaseUser> {
+    fun auditorAware(): AuditorAware<Long> {
         return SpringSecurityAuditor()
     }
 
-    class SpringSecurityAuditor: AuditorAware<BaseUser> {
-        override fun getCurrentAuditor(): Optional<BaseUser> {
-            val context = SecurityContextHolder.getContext()
-            val authentication: Authentication? = context.authentication
-            authentication?.let {
-                return Optional.of(it.principal as BaseUser)
+    class SpringSecurityAuditor : AuditorAware<Long> {
+        override fun getCurrentAuditor(): Optional<Long> {
+            val authentication: Authentication? = SecurityContextHolder.getContext().authentication
+
+            if (authentication == null || !authentication.isAuthenticated) {
+                return Optional.empty()
             }
-            return Optional.empty()
+            return Optional.of((authentication.principal as User).id.value)
         }
     }
 }

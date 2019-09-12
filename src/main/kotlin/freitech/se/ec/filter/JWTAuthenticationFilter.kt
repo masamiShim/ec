@@ -65,7 +65,7 @@ class JWTAuthenticationFilter : UsernamePasswordAuthenticationFilter {
     override fun successfulAuthentication(request: HttpServletRequest?, response: HttpServletResponse?, chain: FilterChain?, authResult: Authentication?) {
         val expirationTime = Expiration_Time.toInt()
         val token = Jwts.builder()
-                .setSubject((authResult?.principal as User).getUserName())
+                .setSubject((authResult?.principal as User).email)
                 .setExpiration(Date(System.currentTimeMillis() + expirationTime))
                 .signWith(SignatureAlgorithm.HS512, SECRET.toByteArray())
                 .compact()

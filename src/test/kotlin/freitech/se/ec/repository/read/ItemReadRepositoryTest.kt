@@ -13,61 +13,64 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.junit4.SpringRunner
 import java.time.LocalDateTime
 import javax.sql.DataSource
 
 @RunWith(SpringRunner::class)
+@DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ItemReadRepositoryTest {
 
     @Autowired
-    lateinit var datasource: DataSource
+    lateinit var dataSource: DataSource
+
+    @Autowired
+    lateinit var itemRepository: ItemRepository
+
 
     companion object {
-        val DELETE_ITEM: Operation = sql("DELETE FROM item WHERE value = 1")
+        val DELETE_ITEM: Operation = sql("DELETE FROM item WHERE id = 1")
 
         val INSERT_ITEM: Operation = insertInto("item")
                 .row()
-                .column(Id.name, 1)
-                .column(ExhibitorId.name, 1)
-                .column(Name.name, "hogeItem")
-                .column(Code.name, "121212")
-                .column(Price.name, 2000)
-                .column(Quantity.name, 20)
-                .column(Comment.name, "test Comment")
-                .column(Created.name, LocalDateTime.now())
-                .column(CreatedBy.name, 1)
-                .column(Modified.name, LocalDateTime.now())
-                .column(ModifiedBy.name, 2)
-                .column(Deleted.name, null)
+                .column(Id.colName, 1)
+                .column(ExhibitorId.colName, 1)
+                .column(Name.colName, "hogeItem")
+                .column(Code.colName, "121212")
+                .column(Price.colName, 2000)
+                .column(Quantity.colName, 20)
+                .column(Comment.colName, "test Comment")
+                .column(Created.colName, LocalDateTime.now())
+                .column(CreatedBy.colName, 1)
+                .column(Modified.colName, LocalDateTime.now())
+                .column(ModifiedBy.colName, 2)
+                .column(Deleted.colName, null)
                 .end()
                 .build()
     }
 
 
-    @Autowired
-    lateinit var itemRepository: ItemRepository
-
     @Before
     fun setUp() {
-        val setup = DbSetup(DataSourceDestination.with(datasource), INSERT_ITEM)
+        val setup = DbSetup(DataSourceDestination.with(dataSource), INSERT_ITEM)
         setup.launch()
     }
 
     @Test
     fun findByPk_test() {
-        itemRepository.findById(1).orElseThrow(NotFoundException("hogeeeeeeee")::class::objectInstance)
+        itemRepository.findById(freitech.se.ec.mo.Id(1)).orElseThrow{ NotFoundException("") }
     }
 
     @Test(expected = NotFoundException::class)
     fun findByPk_Not_Found() {
-        itemRepository.findById(2).orElseThrow(NotFoundException("hogeeeeeeee")::class::objectInstance)
+        itemRepository.findById(freitech.se.ec.mo.Id(2)).orElseThrow { NotFoundException("") }
     }
 
     @After
     fun tearDown() {
-        val setup = DbSetup(DataSourceDestination.with(datasource), DELETE_ITEM)
+        val setup = DbSetup(DataSourceDestination.with(dataSource), DELETE_ITEM)
         setup.launch()
 
     }

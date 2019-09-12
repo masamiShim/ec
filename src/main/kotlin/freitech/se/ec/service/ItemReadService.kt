@@ -14,7 +14,7 @@ class ItemReadService {
     private lateinit var itemRepository: ItemRepository
 
     fun readItem(id: Id): ItemReadResult = try {
-        val item: Item = itemRepository.findById(id.value)
+        val item: Item = itemRepository.findById(id)
                 .orElseThrow(RuntimeException("item not found")::class::objectInstance)
         ItemReadResult.Found(item)
     } catch (e: NotFoundException) {

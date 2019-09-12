@@ -2,6 +2,7 @@ package freitech.se.ec.param
 
 import freitech.se.ec.entity.ItemEntity
 import freitech.se.ec.exception.BadRequestException
+import freitech.se.ec.mo.Id
 import freitech.se.ec.vo.item.Price
 import freitech.se.ec.vo.item.Quantity
 
@@ -20,7 +21,7 @@ class ItemRegisterFormParam(
    @Throws(BadRequestException::class)
     fun toItemEntity(): ItemEntity {
         val exhibitorId = try {
-            exhibitorId.toInt()
+            Id(exhibitorId.toLong())
         } catch (e: Exception) {
             throw BadRequestException(e.message ?: "illegal value exhibitorId")
         }

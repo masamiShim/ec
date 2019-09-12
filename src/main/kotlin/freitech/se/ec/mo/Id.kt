@@ -1,7 +1,14 @@
 package freitech.se.ec.mo
 
 import freitech.se.ec.config.NoArg
+import java.io.Serializable
+import javax.persistence.Column
+import javax.persistence.Embeddable
 
 @NoArg
-data class Id(val value: Int = 0) {
+@Embeddable
+data class Id(
+        @Column(name = "id")
+        val value: Long = 0
+): Serializable {
 }

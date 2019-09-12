@@ -47,6 +47,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    compile("org.hibernate:hibernate-core:5.4.4.Final")
     compile("io.jsonwebtoken:jjwt:0.9.1")
     compile("com.stripe:stripe-java:11.6.1")
     compile("io.springfox:springfox-swagger2:2.9.2")

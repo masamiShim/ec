@@ -22,9 +22,9 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity?) {
-        val http = http ?: throw RuntimeException("security is not set")
         // @formatter:off
-        http.cors()
+        http?.let {
+        it.cors()
                 .and().authorizeRequests()
                 .antMatchers("/login", "/signup", "/logout" ).permitAll()
                 .anyRequest().authenticated()
@@ -33,12 +33,13 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
                 .addFilter(JWTAuthenticationFilter(authenticationManager(), bCryptPasswordEncoder()))
                 .addFilter(JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        }
         // @formatter:on
     }
 
     @Autowired
     @Throws(Exception::class)
-    fun configureAuth(auth: AuthenticationManagerBuilder){
+    fun configureAuth(auth: AuthenticationManagerBuilder) {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(bCryptPasswordEncoder())
     }

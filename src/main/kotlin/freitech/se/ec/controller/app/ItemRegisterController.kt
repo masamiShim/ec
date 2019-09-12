@@ -1,4 +1,4 @@
-package freitech.se.ec.controller
+package freitech.se.ec.controller.app
 
 import freitech.se.ec.param.ItemRegisterFormParam
 import org.springframework.web.bind.annotation.PostMapping
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class ItemRegisterController {
 
-    @PostMapping("/owner/register")
+    @PostMapping("/owner/item/register")
     fun register(
             @RequestBody name: String,
             @RequestBody code: String,
@@ -16,8 +16,6 @@ class ItemRegisterController {
             @RequestBody quantity: String,
             @RequestBody comment: String) {
 
-        val itemRegisterParam = ItemRegisterFormParam(name, code, price, quantity, comment)
-
-
+        val itemRegisterParam = ItemRegisterFormParam("1", name,  code, price, quantity, comment)
     }
 }

@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletResponse
 
 class JWTAuthorizationFilter(authenticationManager: AuthenticationManager?) : BasicAuthenticationFilter(authenticationManager) {
 
-    @Value("\${application.security.token.headerName}")
-    lateinit var HEADER_NAME: String
+    @Value("\${application.security.token.headerName:X-TOKEN-EC}")
+    val HEADER_NAME: String = ""
 
-    @Value("\${application.security.token.prefix}")
-    lateinit var PREFIX: String
+    @Value("\${application.security.token.prefix:tk_ec_app}")
+    val PREFIX: String = ""
 
-    @Value("\${application.security.token.secret}")
-    lateinit var SECRET: String
+    @Value("\${application.security.token.secret:fapw3fei\$samale}")
+    val SECRET: String =""
 
 
     @Throws(IOException::class, ServletException::class)

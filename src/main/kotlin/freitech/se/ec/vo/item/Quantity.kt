@@ -1,6 +1,13 @@
 package freitech.se.ec.vo.item
 
-class Quantity(val value: Long) {
+import javax.persistence.Column
+import javax.persistence.Embeddable
+
+@Embeddable
+class Quantity(
+        @Column(name = "quantity")
+        val value: Long
+) {
     companion object {
         const val MaxValue: Long = 10000000
         const val MinValue: Long = 0

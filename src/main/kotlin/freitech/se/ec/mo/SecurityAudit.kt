@@ -5,34 +5,39 @@ import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDateTime
-import javax.persistence.Column
-import javax.persistence.EntityListeners
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
+import javax.persistence.*
 
 
 @EntityListeners(AuditingEntityListener::class)
+@MappedSuperclass
 abstract class SecurityAudit(
         @javax.persistence.Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        open val id: Int = 0,
+        @Embedded
+        open val id: Id = Id(0),
 
         @CreatedDate
         @Column(nullable = false)
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         val created: LocalDateTime = LocalDateTime.now(),
 
+        @Embedded
         @CreatedBy
-        @Column(nullable = false)
+        @AttributeOverride(name = "value", column = Column(name = "created_by", nullable = false))
         val createdBy: Id = Id(0),
 
         @LastModifiedDate
-        @Column(nullable = false)
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         val modified: LocalDateTime = LocalDateTime.now(),
 
+        @Embedded
         @LastModifiedBy
-        @Column(nullable = false)
+        @AttributeOverride(name = "value", column = Column(name = "modified_by", nullable = false))
         val modifiedBy: Id = Id(0),
 
+        @Column(nullable = false)
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         val deleted: LocalDateTime? = null
 
 )

@@ -54,7 +54,7 @@ func outPutClassFile(data OutPutData) {
 		writer := bufio.NewWriter(file)
 		writer.WriteString("package " + data.PackageName + "\n")
 		writer.WriteString("\n")
-		writer.WriteString("enum class " + className + "Table (name: String){\n")
+		writer.WriteString("enum class " + className + "Table (val colName: String){\n")
 
 		for j := 0; j < len(class.Members); j++ {
 			col := class.Members[j]

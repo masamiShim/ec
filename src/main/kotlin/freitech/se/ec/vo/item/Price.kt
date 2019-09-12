@@ -1,6 +1,13 @@
 package freitech.se.ec.vo.item
 
-class Price(private val value: Long) {
+import javax.persistence.Column
+import javax.persistence.Embeddable
+
+@Embeddable
+class Price(
+        @Column(name = "price")
+        private val value: Long
+) {
     companion object {
         private const val MaxValue: Long = 10000000
         private const val MinValue: Long = 0
