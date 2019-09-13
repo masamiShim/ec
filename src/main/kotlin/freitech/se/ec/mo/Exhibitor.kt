@@ -3,6 +3,7 @@ package freitech.se.ec.mo
 import freitech.se.ec.config.NoArg
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 
 @Entity
 @NoArg
@@ -14,10 +15,10 @@ data class Exhibitor(
                 joinColumns = [JoinColumn(name = "exhibitor_id", referencedColumnName = "id")],
                 inverseJoinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")]
         )
-        val user: User,
+        val user: User? = null,
 
         @get: NotBlank
         val name: String,
-        @get: NotBlank
-        val verified: Boolean
+        @get: NotNull
+        val verified: Boolean = false
 ) : SecurityAudit()

@@ -19,7 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
-class WebSecurityConfig() : WebSecurityConfigurerAdapter() {
+class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Autowired
     lateinit var appConfig: AppConfig
@@ -31,18 +31,16 @@ class WebSecurityConfig() : WebSecurityConfigurerAdapter() {
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity?) {
         // @formatter:off
-        http?.let {
-        it.cors()
-//                .configurationSource(this.corsConfigurationSource())
-                .and().authorizeRequests()
-                .antMatchers("/login", "/signup", "/logout", "/authorize" ).permitAll()
-                .anyRequest().authenticated()
-                .and().logout()
-                .and().csrf().disable()
-                .addFilter(JWTAuthenticationFilter(authenticationManager(), bCryptPasswordEncoder(), appConfig))
-                .addFilter(JWTAuthorizationFilter(authenticationManager(), appConfig))
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        }
+        http?.
+                cors()?.
+                and()?.
+                authorizeRequests()?.antMatchers("/login", "/signup", "/logout", "/authorize" )?.
+                permitAll()?.
+                anyRequest()?.authenticated()?.
+                and()?.logout()?.
+                and()?.csrf()?.disable()?.
+                addFilter(JWTAuthenticationFilter(authenticationManager(), bCryptPasswordEncoder(), appConfig))?.
+                addFilter(JWTAuthorizationFilter(authenticationManager(), appConfig))?.sessionManagement()?.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         // @formatter:on
     }
 
