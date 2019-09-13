@@ -10,17 +10,21 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+    show-sql: true
+
+
 server:
   servlet:
     context-path: /ec/api
 
-
-aapplication:
+application:
   security:
     token:
       headerName: X-TOKEN-EC
       prefix: tk_ec_app
       secret: fapw3fei$samale
+      expirationTime: 3000
+      allowDomain: http://localhost:3000
+logging:
+  level:
+    root: info

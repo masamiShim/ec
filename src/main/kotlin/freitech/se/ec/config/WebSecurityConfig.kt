@@ -3,6 +3,7 @@ package freitech.se.ec.config
 import freitech.se.ec.filter.JWTAuthenticationFilter
 import freitech.se.ec.filter.JWTAuthorizationFilter
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -12,12 +13,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
-class WebSecurityConfig : WebSecurityConfigurerAdapter() {
+class WebSecurityConfig() : WebSecurityConfigurerAdapter() {
 
     @Autowired
+    lateinit var appConfig: AppConfig
+
+    @Autowired
+    @Qualifier("UserDetailsServiceImpl")
     private lateinit var userDetailsService: UserDetailsService
 
     @Throws(Exception::class)
@@ -25,13 +33,14 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
         // @formatter:off
         http?.let {
         it.cors()
+//                .configurationSource(this.corsConfigurationSource())
                 .and().authorizeRequests()
-                .antMatchers("/login", "/signup", "/logout" ).permitAll()
+                .antMatchers("/login", "/signup", "/logout", "/authorize" ).permitAll()
                 .anyRequest().authenticated()
                 .and().logout()
                 .and().csrf().disable()
-                .addFilter(JWTAuthenticationFilter(authenticationManager(), bCryptPasswordEncoder()))
-                .addFilter(JWTAuthorizationFilter(authenticationManager()))
+                .addFilter(JWTAuthenticationFilter(authenticationManager(), bCryptPasswordEncoder(), appConfig))
+                .addFilter(JWTAuthorizationFilter(authenticationManager(), appConfig))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         }
         // @formatter:on
@@ -47,6 +56,21 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     @Bean
     fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
         return BCryptPasswordEncoder()
+    }
+
+    private fun corsConfigurationSource(): CorsConfigurationSource {
+        val corsConfiguration = CorsConfiguration()
+        corsConfiguration.addAllowedMethod(CorsConfiguration.ALL)
+        corsConfiguration.addAllowedHeader(CorsConfiguration.ALL)
+
+        // jwt用のヘッダ
+        corsConfiguration.addExposedHeader(appConfig.headerName)
+        corsConfiguration.addAllowedOrigin(appConfig.allowDomain)
+        corsConfiguration.allowCredentials = true
+
+        val corsSource = UrlBasedCorsConfigurationSource()
+        corsSource.registerCorsConfiguration("/**", corsConfiguration)
+        return corsSource
     }
 
 }

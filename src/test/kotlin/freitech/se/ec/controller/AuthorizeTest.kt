@@ -1,4 +1,4 @@
-package freitech.se.ec.repository.read
+package freitech.se.ec.controller
 
 import com.ninja_squad.dbsetup.DbSetup
 import com.ninja_squad.dbsetup.Operations.insertInto
@@ -7,6 +7,7 @@ import com.ninja_squad.dbsetup.destination.DataSourceDestination
 import com.ninja_squad.dbsetup.operation.Operation
 import freitech.se.ec.EcApplicationTests
 import freitech.se.ec.exception.NotFoundException
+import freitech.se.ec.repository.read.ItemRepository
 import freitech.se.ec.table.ItemTable.*
 import org.junit.After
 import org.junit.Before
@@ -15,15 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.test.context.ActiveProfiles
 import java.time.LocalDateTime
 import javax.sql.DataSource
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @EnableAutoConfiguration
-@ActiveProfiles("test")
-class ItemReadRepositoryTest: EcApplicationTests() {
+class AuthorizeTest: EcApplicationTests() {
 
     @Autowired
     lateinit var dataSource: DataSource

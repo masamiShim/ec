@@ -1,23 +1,29 @@
 package freitech.se.ec
 
+import freitech.se.ec.config.YamlPropertySourceFactory
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.PropertySource
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer
 import springfox.documentation.swagger2.annotations.EnableSwagger2
 
 
 @EnableSwagger2
 @SpringBootApplication
-@PropertySource(value = ["classpath:application.yml"])
+@EnableConfigurationProperties
+@PropertySource(
+        factory = YamlPropertySourceFactory::class,
+        value = ["classpath:application.yml"])
 class EcApplication
 
-@Bean
-fun propertySourcesPlaceholderConfigurer(): PropertySourcesPlaceholderConfigurer {
-    return PropertySourcesPlaceholderConfigurer()
-}
 
 fun main(args: Array<String>) {
-    runApplication<EcApplication>(*args)
+    val ctx = runApplication<EcApplication>(*args)
+    /*
+    val env = ctx.environment
+    env.propertySources
+            .forEach { ps -> println(ps.name + " : " + ps.javaClass) }
+
+    println("Value of `foo.bar` = " + env.getProperty("application.security.token.headerName")!!)
+    */
 }

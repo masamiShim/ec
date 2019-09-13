@@ -1,11 +1,11 @@
 package freitech.se.ec.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import freitech.se.ec.config.AppConfig
 import freitech.se.ec.mo.User
 import freitech.se.ec.param.LoginParam
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -19,29 +19,12 @@ import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JWTAuthenticationFilter : UsernamePasswordAuthenticationFilter {
+class JWTAuthenticationFilter(authenticationManager: AuthenticationManager, bCryptPasswordEncoder: BCryptPasswordEncoder, val appConfig: AppConfig) : UsernamePasswordAuthenticationFilter() {
+    var authManager: AuthenticationManager = authenticationManager
+    var bCryptPassEncoder: BCryptPasswordEncoder = bCryptPasswordEncoder
 
-    @Value("\${application.security.token.expiration}")
-    lateinit var Expiration_Time: String
-
-    @Value("\${application.security.token.secret}")
-    lateinit var SECRET: String
-
-    @Value("\${application.security.token.headerName}")
-    lateinit var HEADER_NAME: String
-
-    @Value("\${application.security.token.prefix}")
-    lateinit var PREFIX: String
-
-    private val authManager: AuthenticationManager
-    private val bCryptPasswordEncoder: BCryptPasswordEncoder
-
-    constructor(authManager: AuthenticationManager, bCryptPasswordEncoder: BCryptPasswordEncoder) : super() {
-        this.authManager = authManager
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder
-
-        setRequiresAuthenticationRequestMatcher(AntPathRequestMatcher("/login", "POST"))
-
+    init {
+        setRequiresAuthenticationRequestMatcher(AntPathRequestMatcher("/authorize", "POST"))
         usernameParameter = "username"
         passwordParameter = "password"
     }
@@ -52,7 +35,7 @@ class JWTAuthenticationFilter : UsernamePasswordAuthenticationFilter {
         } catch (e: IOException) {
             throw RuntimeException(e.message ?: "error has occurred at attempt authentication")
         }
-        return authenticationManager.authenticate(
+        return authManager.authenticate(
                 UsernamePasswordAuthenticationToken(
                         loginParam.username,
                         loginParam.password,
@@ -63,12 +46,12 @@ class JWTAuthenticationFilter : UsernamePasswordAuthenticationFilter {
 
     @Throws(IOException::class, ServletException::class)
     override fun successfulAuthentication(request: HttpServletRequest?, response: HttpServletResponse?, chain: FilterChain?, authResult: Authentication?) {
-        val expirationTime = Expiration_Time.toInt()
+        val expirationTime = appConfig.expirationTime.toInt()
         val token = Jwts.builder()
                 .setSubject((authResult?.principal as User).email)
                 .setExpiration(Date(System.currentTimeMillis() + expirationTime))
-                .signWith(SignatureAlgorithm.HS512, SECRET.toByteArray())
+                .signWith(SignatureAlgorithm.HS512, appConfig.secret.toByteArray())
                 .compact()
-        response?.addHeader(HEADER_NAME, PREFIX + token)
+        response?.addHeader(appConfig.headerName, appConfig.prefix + token)
     }
 }
