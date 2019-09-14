@@ -15,9 +15,6 @@ data class Customer(
         )
         val user: User? = null,
 
-        @get: NotBlank
-        val name: String,
-
         @get: NotNull
         val verified: Boolean = false)
     : SecurityAudit()

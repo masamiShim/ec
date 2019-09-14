@@ -8,6 +8,8 @@ import javax.persistence.*
 @NoArg
 @Entity
 class User(
+        @Column(name = "nickname", nullable = false)
+        val nickname: String = "",
         @Column(name = "email", nullable = false)
         val email: String = "",
         @Column(name = "password", nullable = false)

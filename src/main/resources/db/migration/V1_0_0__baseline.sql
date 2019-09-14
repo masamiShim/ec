@@ -8,6 +8,7 @@ FLUSH PRIVILEGES ;
 
 create table if not exists ec_db.User (
   id int auto_increment,
+  nickname varchar(255) not null,
   email varchar(255) not null,
   password varchar(255) not null,
   enable bit not null,
@@ -31,7 +32,6 @@ create table if not exists ec_db.Rel_User_Exhibitor (
 
 create table if not exists ec_db.Exhibitor (
   id int auto_increment,
-  name varchar(255) not null,
   verified bit not null,
   created timestamp not null,
   created_By int not null,
@@ -43,7 +43,6 @@ create table if not exists ec_db.Exhibitor (
 
 create table if not exists ec_db.Customer (
   id int auto_increment,
-  name varchar(255) not null,
   created timestamp not null,
   created_By int not null,
   modified timestamp not null,
