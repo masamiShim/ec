@@ -1,6 +1,7 @@
 package freitech.se.ec.param
 
 import freitech.se.ec.enums.UserType
+import freitech.se.ec.mo.User
 
 class SignInParam() {
     var name: String = ""
@@ -13,5 +14,9 @@ class SignInParam() {
         this.email = email
         this.password = password
         this.side = UserType.findByCode(side)
+    }
+
+    fun toUser(): User {
+        return side.createUser(email, name, password)
     }
 }

@@ -1,0 +1,14 @@
+version: "2.4"
+services:
+  db:
+    container_name: mysql57
+    build:
+      context: .
+      dockerfile: ./mysql/Dockerfile
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/sqls:/docker-entrypoint-initdb.d
+      - ./mysql/data:/var/lib/mysql

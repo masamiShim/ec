@@ -8,6 +8,10 @@ node_modules/
 src/main/resources/stripekey.*
 src/main/koatlin/freitech/se/ec/table/**
 
+### mysql data ###
+/docker/mysql/data/*
+!/docker/mysql/data/.gitkeep
+
 ### STS ###
 .apt_generated
 .classpath
