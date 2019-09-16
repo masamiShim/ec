@@ -34,7 +34,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
         http?.
                 cors()?.
                 and()?.
-                authorizeRequests()?.antMatchers("/login", "/signup", "/logout", "/authorize" )?.
+                authorizeRequests()?.antMatchers("/login", "/signIn","/signUp", "/logout", "/authorize" )?.
                 permitAll()?.
                 anyRequest()?.authenticated()?.
                 and()?.logout()?.

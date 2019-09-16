@@ -14,21 +14,23 @@ enum class UserType(val code: String) {
     },
     Cutomer("1") {
         override fun createUser(email: String, name: String, password: String): User {
-            return User(email = email, pass = password, customer = Customer(name = name))
+            return User(nickname = name, email = email, pass = password, customer = Customer())
         }
     },
     Exhibitor("2") {
         override fun createUser(email: String, name: String, password: String): User {
-            return User(email = email, pass = password, exhibitor = Exhibitor(name = name))
+            return User(nickname = name, email = email, pass = password, exhibitor = Exhibitor())
         }
     };
 
     companion object {
         fun findByCode(code: String): UserType {
-           return values().firstOrNull { it.code == code } ?: None
+            return values().firstOrNull { it.code == code } ?: None
         }
     }
 
+
+    @Throws(IllegalArgumentException::class)
     abstract fun createUser(email: String, name: String, password: String): User
 
 }

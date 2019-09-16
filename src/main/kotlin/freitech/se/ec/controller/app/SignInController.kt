@@ -15,7 +15,7 @@ class SignInController {
     @Autowired
     private lateinit var userWriteService: UserWriteService
 
-    @PostMapping("/signIn")
+    @PostMapping(value = ["/signIn"])
     fun signIn(@RequestBody param: SignInParam): ResponseEntity<BaseResponse> {
 
         userWriteService.save(param)

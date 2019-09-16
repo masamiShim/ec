@@ -16,7 +16,10 @@ class UserWriteService {
         try {
             userRepository.save(signInParam.toUser())
         } catch (e: Exception) {
-            throw RepositoryException("user register has error occurred")
+            when(e) {
+                is IllegalArgumentException -> throw e
+                else -> throw RepositoryException("user register has error occurred")
+            }
         }
     }
 }
