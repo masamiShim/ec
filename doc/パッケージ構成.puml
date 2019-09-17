@@ -1,0 +1,37 @@
+@startuml
+
+package "Application" {
+[Controller]
+[exception]
+[service]
+[response]
+[request param(param)]
+[Application interface]
+}
+
+package "Gateway" {
+[Application interface]-[Gateway interface]
+[Gateway interface]
+[db] - [Gateway interface]
+[payment] - [Gateway interface]
+}
+
+package "Framework" {
+[Application interface]-[Framework interface]
+[Framework interface]
+[config]
+[filter]
+[handler]
+}
+
+package "Domain" {
+[Application interface]-[Domain interface]
+[Domain interface]
+[entity]
+[enums]
+[service]
+[usecase]
+[vo(valueObject)]
+}
+
+@enduml
