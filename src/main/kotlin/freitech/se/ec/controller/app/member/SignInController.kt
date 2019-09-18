@@ -1,8 +1,8 @@
-package freitech.se.ec.controller.app
+package freitech.se.ec.controller.app.member
 
+import freitech.se.ec.domain.service.write.UserWriteService
 import freitech.se.ec.param.SignInParam
 import freitech.se.ec.response.BaseResponse
-import freitech.se.ec.service.settlement.UserWriteService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

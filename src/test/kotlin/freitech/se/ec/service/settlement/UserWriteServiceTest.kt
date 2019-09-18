@@ -1,31 +1,19 @@
 package freitech.se.ec.service.settlement
 
+import freitech.se.ec.domain.service.write.UserWriteService
 import freitech.se.ec.enums.UserType
 import freitech.se.ec.exception.RepositoryException
 import freitech.se.ec.mo.User
 import freitech.se.ec.param.SignInParam
 import freitech.se.ec.repository.read.UserRepository
-import org.hamcrest.Matchers
-import org.hamcrest.Matchers.any
-import org.hamcrest.Matchers.anything
-import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.context.annotation.ComponentScan
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.orm.jpa.JpaSystemException
-import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)

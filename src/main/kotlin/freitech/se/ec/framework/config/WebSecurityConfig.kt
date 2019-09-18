@@ -22,7 +22,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Autowired
-    lateinit var appConfig: AppConfig
+    lateinit var securityTokenConfig: SecurityTokenConfig
 
     @Autowired
     @Qualifier("UserDetailsServiceImpl")
@@ -39,8 +39,8 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
                 anyRequest()?.authenticated()?.
                 and()?.logout()?.
                 and()?.csrf()?.disable()?.
-                addFilter(JWTAuthenticationFilter(authenticationManager(), bCryptPasswordEncoder(), appConfig))?.
-                addFilter(JWTAuthorizationFilter(authenticationManager(), appConfig))?.sessionManagement()?.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                addFilter(JWTAuthenticationFilter(authenticationManager(), bCryptPasswordEncoder(), securityTokenConfig))?.
+                addFilter(JWTAuthorizationFilter(authenticationManager(), securityTokenConfig))?.sessionManagement()?.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         // @formatter:on
     }
 
@@ -62,8 +62,8 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
         corsConfiguration.addAllowedHeader(CorsConfiguration.ALL)
 
         // jwt用のヘッダ
-        corsConfiguration.addExposedHeader(appConfig.headerName)
-        corsConfiguration.addAllowedOrigin(appConfig.allowDomain)
+        corsConfiguration.addExposedHeader(securityTokenConfig.headerName)
+        corsConfiguration.addAllowedOrigin(securityTokenConfig.allowDomain)
         corsConfiguration.allowCredentials = true
 
         val corsSource = UrlBasedCorsConfigurationSource()

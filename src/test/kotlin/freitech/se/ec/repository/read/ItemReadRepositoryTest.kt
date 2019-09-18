@@ -7,7 +7,7 @@ import com.ninja_squad.dbsetup.destination.DataSourceDestination
 import com.ninja_squad.dbsetup.operation.Operation
 import freitech.se.ec.EcApplicationTests
 import freitech.se.ec.exception.NotFoundException
-import freitech.se.ec.table.ItemTable.*
+import freitech.se.ec.gateway.db.table.ItemTable.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

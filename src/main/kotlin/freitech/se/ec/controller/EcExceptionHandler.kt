@@ -16,9 +16,9 @@ import org.springframework.web.servlet.NoHandlerFoundException
 import java.time.LocalDateTime
 
 @ControllerAdvice
-class ExceptionHandler {
+class EcExceptionHandler {
 
-    val logger: Logger = LoggerFactory.getLogger(freitech.se.ec.controller.ExceptionHandler::class.java)
+    val logger: Logger = LoggerFactory.getLogger(EcExceptionHandler::class.java)
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = [BadRequestException::class])

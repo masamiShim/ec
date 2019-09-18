@@ -19,6 +19,10 @@ server:
 
 application:
   security:
+    hash:
+      algorithm: PBKDF2WithHmacSHA256
+      seed: hogehoge
+      stretch: 12
     token:
       headerName: X-TOKEN-EC
       prefix: tk_ec_app

@@ -1,6 +1,6 @@
 package freitech.se.ec.filter
 
-import freitech.se.ec.config.AppConfig
+import freitech.se.ec.config.SecurityTokenConfig
 import io.jsonwebtoken.Jwts
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -12,14 +12,14 @@ import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JWTAuthorizationFilter(authenticationManager: AuthenticationManager?, val appConfig: AppConfig) : BasicAuthenticationFilter(authenticationManager) {
+class JWTAuthorizationFilter(authenticationManager: AuthenticationManager?, val securityTokenConfig: SecurityTokenConfig) : BasicAuthenticationFilter(authenticationManager) {
 
     @Throws(IOException::class, ServletException::class)
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
 
         // ヘッダの存在とPrefixをチェック
-        val header = request.getHeader(appConfig.headerName)
-        if (header == null || !header.startsWith(appConfig.prefix)) {
+        val header = request.getHeader(securityTokenConfig.headerName)
+        if (header == null || !header.startsWith(securityTokenConfig.prefix)) {
             chain.doFilter(request, response)
             return
         }
@@ -33,11 +33,11 @@ class JWTAuthorizationFilter(authenticationManager: AuthenticationManager?, val 
     }
 
     private fun getAuthentication(request: HttpServletRequest): UsernamePasswordAuthenticationToken? {
-        val token: String? = request.getHeader(appConfig.headerName)
+        val token: String? = request.getHeader(securityTokenConfig.headerName)
         token?.let {
             val user: String? = Jwts.parser()
-                    .setSigningKey(appConfig.secret.toByteArray())
-                    .parseClaimsJws(token.replace(appConfig.prefix, ""))
+                    .setSigningKey(securityTokenConfig.secret.toByteArray())
+                    .parseClaimsJws(token.replace(securityTokenConfig.prefix, ""))
                     .body
                     .subject
 

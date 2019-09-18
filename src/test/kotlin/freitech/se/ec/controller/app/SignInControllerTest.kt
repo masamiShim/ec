@@ -1,21 +1,14 @@
 package freitech.se.ec.controller.app
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import freitech.se.ec.config.AppConfig
+import freitech.se.ec.controller.app.member.SignInController
+import freitech.se.ec.domain.service.write.UserWriteService
 import freitech.se.ec.param.SignInParam
 import freitech.se.ec.repository.read.UserRepository
 import freitech.se.ec.response.BaseResponse
-import freitech.se.ec.service.settlement.UserWriteService
-import org.hamcrest.CoreMatchers
-import org.hamcrest.CoreMatchers.any
-import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -24,13 +17,11 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.http.MediaType
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors
 import org.springframework.test.context.junit4.SpringRunner
-import org.springframework.test.web.client.RequestMatcher
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.nio.charset.Charset
 
 @RunWith(SpringRunner::class)

@@ -21,7 +21,7 @@ type OutPutData struct {
 // ファイル出力に必要なデータを作成する
 func NewOutputData(data []sub.Table) *OutPutData {
 	instance := new(OutPutData)
-	packagePath := "freitech/se/ec/table/"
+	packagePath := "freitech/se/ec/gateway/db/table/"
 	instance.PackagePath = packagePath
 	instance.PackageName = strings.ReplaceAll(packagePath[:len(packagePath)-1], "/", ".")
 	for i := 0; i < len(data); i++ {

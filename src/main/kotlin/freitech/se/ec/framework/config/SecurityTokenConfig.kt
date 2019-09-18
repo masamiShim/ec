@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component
 
 @Component
 @ConfigurationProperties(prefix = "application.security.token")
-class AppConfig() {
+class SecurityTokenConfig() {
     lateinit var headerName: String
     lateinit var prefix: String
     lateinit var secret: String

@@ -1,4 +1,4 @@
-package freitech.se.ec.service.settlement
+package freitech.se.ec.domain.service.write
 
 import freitech.se.ec.exception.RepositoryException
 import freitech.se.ec.param.SignInParam

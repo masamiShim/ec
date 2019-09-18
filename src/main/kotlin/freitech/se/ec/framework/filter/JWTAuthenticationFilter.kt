@@ -1,7 +1,7 @@
 package freitech.se.ec.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import freitech.se.ec.config.AppConfig
+import freitech.se.ec.config.SecurityTokenConfig
 import freitech.se.ec.mo.User
 import freitech.se.ec.param.LoginParam
 import io.jsonwebtoken.Jwts
@@ -19,7 +19,7 @@ import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JWTAuthenticationFilter(authenticationManager: AuthenticationManager, bCryptPasswordEncoder: BCryptPasswordEncoder, val appConfig: AppConfig) : UsernamePasswordAuthenticationFilter() {
+class JWTAuthenticationFilter(authenticationManager: AuthenticationManager, bCryptPasswordEncoder: BCryptPasswordEncoder, val securityTokenConfig: SecurityTokenConfig) : UsernamePasswordAuthenticationFilter() {
     var authManager: AuthenticationManager = authenticationManager
     var bCryptPassEncoder: BCryptPasswordEncoder = bCryptPasswordEncoder
 
@@ -46,12 +46,12 @@ class JWTAuthenticationFilter(authenticationManager: AuthenticationManager, bCry
 
     @Throws(IOException::class, ServletException::class)
     override fun successfulAuthentication(request: HttpServletRequest?, response: HttpServletResponse?, chain: FilterChain?, authResult: Authentication?) {
-        val expirationTime = appConfig.expirationTime.toInt()
+        val expirationTime = securityTokenConfig.expirationTime.toInt()
         val token = Jwts.builder()
                 .setSubject((authResult?.principal as User).email)
                 .setExpiration(Date(System.currentTimeMillis() + expirationTime))
-                .signWith(SignatureAlgorithm.HS512, appConfig.secret.toByteArray())
+                .signWith(SignatureAlgorithm.HS512, securityTokenConfig.secret.toByteArray())
                 .compact()
-        response?.addHeader(appConfig.headerName, appConfig.prefix + token)
+        response?.addHeader(securityTokenConfig.headerName, securityTokenConfig.prefix + token)
     }
 }

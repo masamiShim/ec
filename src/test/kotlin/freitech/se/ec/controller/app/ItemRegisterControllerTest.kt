@@ -1,16 +1,10 @@
 package freitech.se.ec.controller.app
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import freitech.se.ec.config.AppConfig
+import freitech.se.ec.config.SecurityTokenConfig
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
-import org.springframework.boot.autoconfigure.jms.JndiConnectionFactoryAutoConfiguration
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
-import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.ComponentScan
@@ -33,7 +27,7 @@ class ItemRegisterControllerTest {
     lateinit var mvc: MockMvc
 
     @Autowired
-    lateinit var appConfig: AppConfig
+    lateinit var securityTokenConfig: SecurityTokenConfig
 
     @Autowired
     lateinit var objectMapper: ObjectMapper
@@ -51,7 +45,7 @@ class ItemRegisterControllerTest {
         */
         val builder = MockMvcRequestBuilders.post("/owner/item/register")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
-                .header(appConfig.headerName, appConfig.prefix + "aG9nZWhvZ2Vob2dlOmhvZ2Vob2dlaG9lZw==")
+                .header(securityTokenConfig.headerName, securityTokenConfig.prefix + "aG9nZWhvZ2Vob2dlOmhvZ2Vob2dlaG9lZw==")
                 .with(SecurityMockMvcRequestPostProcessors.csrf())
 
         mvc.perform(builder)
