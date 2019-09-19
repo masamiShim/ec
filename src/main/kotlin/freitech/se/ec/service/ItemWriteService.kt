@@ -1,8 +1,8 @@
 package freitech.se.ec.service
 
-import freitech.se.ec.entity.ItemEntity
-import freitech.se.ec.mo.Item
-import freitech.se.ec.repository.read.ItemRepository
+import freitech.se.ec.domain.entity.ItemEntity
+import freitech.se.ec.gateway.db.mo.Item
+import freitech.se.ec.gateway.db.repository.read.ItemRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

@@ -1,7 +1,7 @@
 package freitech.se.ec.config
 
 import freitech.se.ec.exception.NotFoundException
-import freitech.se.ec.repository.read.UserRepository
+import freitech.se.ec.gateway.db.repository.read.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

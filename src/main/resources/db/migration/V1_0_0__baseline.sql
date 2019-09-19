@@ -44,6 +44,7 @@ create table if not exists ec_db.Exhibitor (
 
 create table if not exists ec_db.Customer (
   id int auto_increment,
+  verified bit not null,
   created timestamp not null,
   created_By int not null,
   modified timestamp not null,

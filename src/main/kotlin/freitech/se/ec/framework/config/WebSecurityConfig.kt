@@ -1,7 +1,8 @@
-package freitech.se.ec.config
+package freitech.se.ec.framework.config
 
-import freitech.se.ec.filter.JWTAuthenticationFilter
-import freitech.se.ec.filter.JWTAuthorizationFilter
+import freitech.se.ec.config.SecurityTokenConfig
+import freitech.se.ec.framework.filter.JWTAuthenticationFilter
+import freitech.se.ec.framework.filter.JWTAuthorizationFilter
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
@@ -34,7 +35,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
         http?.
                 cors()?.
                 and()?.
-                authorizeRequests()?.antMatchers("/login", "/signIn","/signUp", "/logout", "/authorize" )?.
+                authorizeRequests()?.antMatchers("/login", "/signin", "/logout", "/authorize" )?.
                 permitAll()?.
                 anyRequest()?.authenticated()?.
                 and()?.logout()?.

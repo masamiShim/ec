@@ -1,4 +1,4 @@
-package freitech.se.ec.config
+package freitech.se.ec.framework.config
 
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties
 import org.springframework.context.annotation.Bean

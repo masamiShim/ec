@@ -1,6 +1,6 @@
 package freitech.se.ec.policy.item
 
-import freitech.se.ec.entity.ItemEntity
+import freitech.se.ec.domain.entity.ItemEntity
 import freitech.se.ec.exception.IllegalPolicyException
 
 class ItemRegisterPolicy() {

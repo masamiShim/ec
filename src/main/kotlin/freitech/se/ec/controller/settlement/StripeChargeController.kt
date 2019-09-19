@@ -24,8 +24,7 @@ class StripeChargeController {
 
         val builder = StripeChargeParamBuilder(requestParam.amount.toLong(), requestParam.mail.value)
 
-        val chargeResult = stripeChargeService.charge(builder)
-        return when (chargeResult) {
+        return when (val chargeResult = stripeChargeService.charge(builder)) {
             is ChargeResult.Failed -> ResponseEntity.ok(BaseResponse("faild"))
             is ChargeResult.Success -> ResponseEntity.ok(BaseResponse(chargeResult.amount.toString()))
         }

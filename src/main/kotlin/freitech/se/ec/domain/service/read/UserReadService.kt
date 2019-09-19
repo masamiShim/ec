@@ -1,8 +1,8 @@
 package freitech.se.ec.domain.service.read
 
 import freitech.se.ec.exception.NotFoundException
-import freitech.se.ec.mo.User
-import freitech.se.ec.repository.read.UserRepository
+import freitech.se.ec.gateway.db.mo.User
+import freitech.se.ec.gateway.db.repository.read.UserRepository
 import freitech.se.ec.vo.Email
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

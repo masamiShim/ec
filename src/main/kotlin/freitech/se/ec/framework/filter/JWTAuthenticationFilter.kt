@@ -1,8 +1,8 @@
-package freitech.se.ec.filter
+package freitech.se.ec.framework.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import freitech.se.ec.config.SecurityTokenConfig
-import freitech.se.ec.mo.User
+import freitech.se.ec.gateway.db.mo.User
 import freitech.se.ec.param.LoginParam
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -19,7 +19,7 @@ import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JWTAuthenticationFilter(authenticationManager: AuthenticationManager, bCryptPasswordEncoder: BCryptPasswordEncoder, val securityTokenConfig: SecurityTokenConfig) : UsernamePasswordAuthenticationFilter() {
+class JWTAuthenticationFilter(authenticationManager: AuthenticationManager, bCryptPasswordEncoder: BCryptPasswordEncoder, private val securityTokenConfig: SecurityTokenConfig) : UsernamePasswordAuthenticationFilter() {
     var authManager: AuthenticationManager = authenticationManager
     var bCryptPassEncoder: BCryptPasswordEncoder = bCryptPasswordEncoder
 

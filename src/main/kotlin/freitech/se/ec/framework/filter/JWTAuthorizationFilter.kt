@@ -1,4 +1,4 @@
-package freitech.se.ec.filter
+package freitech.se.ec.framework.filter
 
 import freitech.se.ec.config.SecurityTokenConfig
 import io.jsonwebtoken.Jwts

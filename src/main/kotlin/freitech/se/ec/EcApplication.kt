@@ -1,6 +1,6 @@
 package freitech.se.ec
 
-import freitech.se.ec.config.YamlPropertySourceFactory
+import freitech.se.ec.framework.config.YamlPropertySourceFactory
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication

@@ -1,4 +1,4 @@
-package freitech.se.ec.mo
+package freitech.se.ec.gateway.db.mo
 
 import freitech.se.ec.config.NoArg
 import java.io.Serializable

@@ -1,4 +1,4 @@
-package freitech.se.ec.mo
+package freitech.se.ec.gateway.db.mo
 
 import freitech.se.ec.config.NoArg
 import org.springframework.security.core.GrantedAuthority
@@ -25,17 +25,17 @@ class User(
         @Column(name = "locked", nullable = false)
         val locked: Boolean = false,
 
-        @OneToOne(cascade = [CascadeType.ALL], optional = true)
+        @OneToOne(cascade = [CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE], optional = true)
         @JoinTable(name = "rel_user_exhibitor",
                 joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
                 inverseJoinColumns = [JoinColumn(name = "exhibitor_id", referencedColumnName = "id")])
-        val exhibitor: Exhibitor? = null,
+        var exhibitor: Exhibitor? = null,
 
-        @OneToOne(cascade = [CascadeType.ALL], optional = true)
+        @OneToOne(cascade = [CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE], optional = true)
         @JoinTable(name = "rel_user_customer",
                 joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
                 inverseJoinColumns = [JoinColumn(name = "customer_id", referencedColumnName = "id")])
-        val customer: Customer? = null
+        var customer: Customer? = null
 ) : UserDetails, SecurityAudit() {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
@@ -51,7 +51,7 @@ class User(
     }
 
     override fun isCredentialsNonExpired(): Boolean {
-        return credential;
+        return credential
     }
 
     override fun getPassword(): String {

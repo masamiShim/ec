@@ -1,10 +1,10 @@
 package freitech.se.ec.usecase
 
-import freitech.se.ec.entity.ItemEntity
+import freitech.se.ec.domain.entity.ItemEntity
 import freitech.se.ec.exception.IllegalPolicyException
 import freitech.se.ec.exception.NotFoundException
 import freitech.se.ec.exception.SystemException
-import freitech.se.ec.mo.Id
+import freitech.se.ec.gateway.db.mo.Id
 import freitech.se.ec.policy.item.ItemRegisterPolicy
 import freitech.se.ec.service.ItemReadResult
 import freitech.se.ec.service.ItemReadService

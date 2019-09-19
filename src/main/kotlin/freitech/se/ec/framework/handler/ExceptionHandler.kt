@@ -1,4 +1,4 @@
-package freitech.se.ec.handler
+package freitech.se.ec.framework.handler
 
 import freitech.se.ec.exception.BadRequestException
 import freitech.se.ec.response.BaseResponse

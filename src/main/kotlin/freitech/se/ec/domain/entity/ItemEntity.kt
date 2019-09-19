@@ -1,7 +1,7 @@
-package freitech.se.ec.entity
+package freitech.se.ec.domain.entity
 
 import freitech.se.ec.config.NoArg
-import freitech.se.ec.mo.Id
+import freitech.se.ec.gateway.db.mo.Id
 import freitech.se.ec.vo.item.Price
 import freitech.se.ec.vo.item.Quantity
 import javax.persistence.AttributeOverride

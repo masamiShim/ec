@@ -1,4 +1,4 @@
-package freitech.se.ec.config
+package freitech.se.ec.framework.config
 
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean
 import org.springframework.core.env.PropertiesPropertySource

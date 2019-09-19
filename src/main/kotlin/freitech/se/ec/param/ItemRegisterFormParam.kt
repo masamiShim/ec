@@ -1,8 +1,8 @@
 package freitech.se.ec.param
 
-import freitech.se.ec.entity.ItemEntity
+import freitech.se.ec.domain.entity.ItemEntity
 import freitech.se.ec.exception.BadRequestException
-import freitech.se.ec.mo.Id
+import freitech.se.ec.gateway.db.mo.Id
 import freitech.se.ec.vo.item.Price
 import freitech.se.ec.vo.item.Quantity
 

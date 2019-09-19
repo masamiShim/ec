@@ -1,4 +1,4 @@
-package freitech.se.ec.mo
+package freitech.se.ec.gateway.db.mo
 
 data class ItemImage(
         val itemId: Id,
