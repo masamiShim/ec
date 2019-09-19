@@ -3,6 +3,7 @@ package freitech.se.ec.gateway.db.mo
 import freitech.se.ec.config.NoArg
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import java.io.Serializable
 import javax.persistence.*
 
 @NoArg
@@ -25,18 +26,18 @@ class User(
         @Column(name = "locked", nullable = false)
         val locked: Boolean = false,
 
-        @OneToOne(cascade = [CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE], optional = true)
+        @OneToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], optional = true, orphanRemoval = true)
         @JoinTable(name = "rel_user_exhibitor",
-                joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
+                joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)],
                 inverseJoinColumns = [JoinColumn(name = "exhibitor_id", referencedColumnName = "id")])
         var exhibitor: Exhibitor? = null,
 
-        @OneToOne(cascade = [CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE], optional = true)
+        @OneToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], optional = true, orphanRemoval = true)
         @JoinTable(name = "rel_user_customer",
-                joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
+                joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)],
                 inverseJoinColumns = [JoinColumn(name = "customer_id", referencedColumnName = "id")])
         var customer: Customer? = null
-) : UserDetails, SecurityAudit() {
+) : UserDetails, SecurityAudit(), Serializable {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return mutableListOf()

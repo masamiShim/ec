@@ -31,6 +31,7 @@ create table if not exists ec_db.Rel_User_Exhibitor (
   primary key (user_id, exhibitor_id)
   );
 
+
 create table if not exists ec_db.Exhibitor (
   id int auto_increment,
   verified bit not null,

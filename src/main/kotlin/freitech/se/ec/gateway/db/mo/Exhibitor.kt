@@ -1,6 +1,7 @@
 package freitech.se.ec.gateway.db.mo
 
 import freitech.se.ec.config.NoArg
+import java.io.Serializable
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotNull
 @NoArg
 data class Exhibitor(
 
-        @OneToOne(cascade = [CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH], fetch = FetchType.LAZY, optional = true)
+        @OneToOne(fetch = FetchType.LAZY, optional = true, orphanRemoval = true)
         @JoinTable(
                 name = "rel_user_exhibitor",
                 joinColumns = [JoinColumn(name = "exhibitor_id", referencedColumnName = "id")],
@@ -16,6 +17,5 @@ data class Exhibitor(
         )
         var user: User? = null,
 
-        @get: NotNull
         var verified: Boolean = false
-) : SecurityAudit()
+) : SecurityAudit(), Serializable

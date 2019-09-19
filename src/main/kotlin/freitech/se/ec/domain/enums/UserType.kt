@@ -13,21 +13,21 @@ enum class UserType(val code: String) {
     },
     Customer("1") {
         override fun createUser(user: User): User {
-            user.customer = freitech.se.ec.gateway.db.mo.Customer(user = user)
+            user.customer = freitech.se.ec.gateway.db.mo.Customer()
             return user
         }
     },
     Exhibitor("2") {
         override fun createUser(user: User): User {
-            user.exhibitor = freitech.se.ec.gateway.db.mo.Exhibitor(user = user)
+            user.exhibitor = freitech.se.ec.gateway.db.mo.Exhibitor()
             return user
         }
     },
 
     Both("3") {
         override fun createUser(user: User): User {
-            user.exhibitor = freitech.se.ec.gateway.db.mo.Exhibitor(user = user)
-            user.customer = freitech.se.ec.gateway.db.mo.Customer(user = user)
+            user.exhibitor = freitech.se.ec.gateway.db.mo.Exhibitor()
+            user.customer = freitech.se.ec.gateway.db.mo.Customer()
             return user
         }
     };

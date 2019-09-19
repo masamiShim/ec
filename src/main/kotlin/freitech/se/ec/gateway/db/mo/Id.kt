@@ -9,6 +9,6 @@ import javax.persistence.Embeddable
 @Embeddable
 data class Id(
         @Column(name = "id")
-        val value: Long = 0
+        val value: Long? = 0
 ): Serializable {
 }
