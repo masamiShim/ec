@@ -11,7 +11,13 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: true
-
+  redis:
+    host: localhost
+    port: 6379
+    password: null
+    database: 0
+    session:
+      duration: 2678400
 
 server:
   servlet:

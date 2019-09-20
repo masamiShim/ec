@@ -14,7 +14,7 @@ import javax.persistence.Embedded
 data class ItemEntity(
         @Embedded
         @AttributeOverride(name = "value", column = Column(name = "exhibitor_id"))
-        val exhibitorId: Id = Id(0),
+        val exhibitorId: Long = 0,
         val name: String = "",
         val code: String = "",
         @Embedded

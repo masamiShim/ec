@@ -1,4 +1,4 @@
-package freitech.se.ec.controller.app
+package freitech.se.ec.controller.app.item
 
 import freitech.se.ec.param.ItemRegisterFormParam
 import org.springframework.web.bind.annotation.PostMapping

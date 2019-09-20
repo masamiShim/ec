@@ -5,13 +5,15 @@ import javax.persistence.*
 
 @Entity
 data class Customer(
-
+/*
         @OneToOne(fetch = FetchType.LAZY, optional = true, orphanRemoval = true)
         @JoinTable(
                 name = "rel_user_customer",
                 joinColumns = [JoinColumn(name = "customer_id", referencedColumnName = "id")],
                 inverseJoinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")]
         )
+*/
+        @OneToOne(mappedBy = "customer")
         var user: User? = null,
 
         var verified: Boolean = false)

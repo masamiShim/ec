@@ -46,7 +46,7 @@ func outPutClassFile(data OutPutData) {
 	for t := 0; t < len(data.Classes); t++ {
 		class := data.Classes[t]
 		className := class.ClassName
-		file, err := os.Create(outPutPath + className + ".kt")
+		file, err := os.Create(outPutPath + className + "Table.kt")
 		if err != nil {
 			panic(err.Error())
 		}

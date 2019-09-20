@@ -6,6 +6,7 @@ import freitech.se.ec.gateway.db.mo.User
 import freitech.se.ec.param.LoginParam
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -14,12 +15,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import java.io.IOException
 import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.servlet.FilterChain
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JWTAuthenticationFilter(authenticationManager: AuthenticationManager, bCryptPasswordEncoder: BCryptPasswordEncoder, private val securityTokenConfig: SecurityTokenConfig) : UsernamePasswordAuthenticationFilter() {
+class JWTAuthenticationFilter(
+        authenticationManager: AuthenticationManager,
+        bCryptPasswordEncoder: BCryptPasswordEncoder,
+        private val securityTokenConfig: SecurityTokenConfig,
+        private val stringRedisTemplate: StringRedisTemplate) : UsernamePasswordAuthenticationFilter() {
     var authManager: AuthenticationManager = authenticationManager
     var bCryptPassEncoder: BCryptPasswordEncoder = bCryptPasswordEncoder
 
@@ -42,8 +48,7 @@ class JWTAuthenticationFilter(authenticationManager: AuthenticationManager, bCry
                         mutableListOf())
         )
     }
-
-
+    
     @Throws(IOException::class, ServletException::class)
     override fun successfulAuthentication(request: HttpServletRequest?, response: HttpServletResponse?, chain: FilterChain?, authResult: Authentication?) {
         val expirationTime = securityTokenConfig.expirationTime.toInt()
@@ -52,6 +57,10 @@ class JWTAuthenticationFilter(authenticationManager: AuthenticationManager, bCry
                 .setExpiration(Date(System.currentTimeMillis() + expirationTime))
                 .signWith(SignatureAlgorithm.HS512, securityTokenConfig.secret.toByteArray())
                 .compact()
+
+        // Redisに保存してみる
+        stringRedisTemplate.opsForValue().set("user-${(authResult?.principal as User).id}:", token, 60, TimeUnit.DAYS)
+
         response?.addHeader(securityTokenConfig.headerName, securityTokenConfig.prefix + token)
     }
 }

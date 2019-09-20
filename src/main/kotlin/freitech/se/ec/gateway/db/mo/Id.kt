@@ -7,6 +7,7 @@ import javax.persistence.Embeddable
 
 @NoArg
 @Embeddable
+@Deprecated("Longラッパーの独自型で自動採番しようと")
 data class Id(
         @Column(name = "id")
         val value: Long? = 0

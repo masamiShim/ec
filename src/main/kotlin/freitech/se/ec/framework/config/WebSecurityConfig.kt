@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -26,6 +27,9 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     lateinit var securityTokenConfig: SecurityTokenConfig
 
     @Autowired
+    lateinit var stringRedisTemplate: StringRedisTemplate
+
+    @Autowired
     @Qualifier("UserDetailsServiceImpl")
     private lateinit var userDetailsService: UserDetailsService
 
@@ -40,7 +44,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
                 anyRequest()?.authenticated()?.
                 and()?.logout()?.
                 and()?.csrf()?.disable()?.
-                addFilter(JWTAuthenticationFilter(authenticationManager(), bCryptPasswordEncoder(), securityTokenConfig))?.
+                addFilter(JWTAuthenticationFilter(authenticationManager(), bCryptPasswordEncoder(), securityTokenConfig, stringRedisTemplate))?.
                 addFilter(JWTAuthorizationFilter(authenticationManager(), securityTokenConfig))?.sessionManagement()?.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         // @formatter:on
     }

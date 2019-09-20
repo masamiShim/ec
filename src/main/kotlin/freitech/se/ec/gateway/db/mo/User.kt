@@ -16,11 +16,11 @@ class User(
         @Column(name = "password", nullable = false)
         val pass: String = "",
         @Column(name = "enable", nullable = false)
-        val enable: Boolean = false,
+        val enable: Boolean = true,
         @Column(name = "expired", nullable = false)
         val expired: Boolean = false,
         @Column(name = "credential", nullable = false)
-        val credential: Boolean = false,
+        val credential: Boolean = true,
         @Column(name = "failure", nullable = false)
         val failure: Short = 0,
         @Column(name = "locked", nullable = false)
@@ -60,10 +60,10 @@ class User(
     }
 
     override fun isAccountNonExpired(): Boolean {
-        return expired
+        return !expired
     }
 
     override fun isAccountNonLocked(): Boolean {
-        return locked
+        return !locked
     }
 }

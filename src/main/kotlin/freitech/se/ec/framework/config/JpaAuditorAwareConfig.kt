@@ -26,7 +26,7 @@ class JpaAuditorAwareConfig {
             if (authentication == null || !authentication.isAuthenticated || authentication is AnonymousAuthenticationToken) {
                 return Optional.empty()
             }
-            return Optional.ofNullable((authentication.principal as User).id?.value)
+            return Optional.ofNullable((authentication.principal as User).id)
         }
     }
 }

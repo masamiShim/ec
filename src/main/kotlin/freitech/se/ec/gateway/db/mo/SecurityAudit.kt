@@ -15,8 +15,7 @@ import javax.persistence.*
 abstract class SecurityAudit(
         @javax.persistence.Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Embedded
-        open var id: Id = Id(),
+        open var id: Long = 0,
 
         @CreatedDate
         @Column(nullable = false)

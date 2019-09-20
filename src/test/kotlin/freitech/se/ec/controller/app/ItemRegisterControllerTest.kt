@@ -2,6 +2,7 @@ package freitech.se.ec.controller.app
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import freitech.se.ec.config.SecurityTokenConfig
+import freitech.se.ec.controller.app.item.ItemRegisterController
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
