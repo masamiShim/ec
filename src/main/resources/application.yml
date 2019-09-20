@@ -1,5 +1,9 @@
+server:
+  servlet:
+    context-path: /ec/api
 
 spring:
+  ## database configuration
   flyway:
     enabled: false
   datasource:
@@ -7,10 +11,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ec_user
     password: ec_user_01
+  ## hibernate configuration
   jpa:
     hibernate:
       ddl-auto: none
     show-sql: true
+  ## cache configuration
   redis:
     host: localhost
     port: 6379
@@ -18,11 +24,12 @@ spring:
     database: 0
     session:
       duration: 2678400
+  mail:
+    host: localhost
+    port: 25
+    src: kei11nishikori16@gmail.com
 
-server:
-  servlet:
-    context-path: /ec/api
-
+## application configuration
 application:
   security:
     hash:

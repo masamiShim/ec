@@ -1,6 +1,7 @@
 package freitech.se.ec.controller.app.member
 
 import freitech.se.ec.domain.service.read.UserReadService
+import freitech.se.ec.exception.NotFoundException
 import freitech.se.ec.param.PasswordReminderParam
 import freitech.se.ec.response.BaseResponse
 import org.springframework.beans.factory.annotation.Autowired
