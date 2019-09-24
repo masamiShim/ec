@@ -1,4 +1,4 @@
-package freitech.se.ec.service
+package freitech.se.ec.service.mail
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -10,20 +10,19 @@ import org.springframework.stereotype.Service
 class MailSenderService {
 
     @Autowired
-    lateinit var mailSender: MailSender
+    private lateinit var mailSender: MailSender
 
     @Value("\${spring.mail.src}")
-    val src: String =""
+    private val src: String = "example@gmail.com"
 
-    fun sendRemind(dist: String){
+    fun send(subject: String, content: String, dist: String) {
+
         val message = SimpleMailMessage().apply {
             setFrom(src)
             setTo(dist)
-            setSubject("パスワード再設定メール")
-            setText("""
-               パスワード再設定用のメールです。
-               以下のリンクをクリックしてパスワードを再設定してください。
-            """)
+            setSubject(subject)
+            setText(content)
         }
+        mailSender.send(message)
     }
 }
